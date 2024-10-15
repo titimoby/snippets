@@ -2,6 +2,7 @@ package snippets
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	"errors"
 	"flag"
 	"fmt"
@@ -69,7 +70,22 @@ func generateVSCodeSnippets(yamlSnippets map[string]YamlSnippet) ([]byte, error)
 	return bSnippets, nil
 }
 
-func writeJsonFile(jsonFilePath string, jsonData []byte) error {
+type LiveTemplate struct {
+	XMLName xml.Name `xml:"template"`
+	Name    string   `xml:"name,attr"`
+}
+
+func generateLiveSnippets(yamlSnippets map[string]YamlSnippet) ([]byte, error) {
+	liveTemplates := make([]LiveTemplate, 0)
+	for _, snippet := range yamlSnippets {
+		liveTemplates = append(liveTemplates, LiveTemplate{
+			Name: snippet.Name,
+		})
+	}
+	return xml.MarshalIndent(liveTemplates, "", "  ")
+}
+
+func writeByteArrayToFile(jsonFilePath string, jsonData []byte) error {
 
 	f, err := os.Create(jsonFilePath)
 
@@ -146,7 +162,7 @@ func parse(command string, args []string) error {
 			os.Exit(1)
 		}
 
-		err = writeJsonFile(*output, jsonData)
+		err = writeByteArrayToFile(*output, jsonData)
 
 		if err != nil {
 			fmt.Println("😡", err.Error())

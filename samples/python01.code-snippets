@@ -2,10 +2,21 @@
   "show 01": {
     "body": [
       "app = typer.Typer()",
-      "# remove main"
+      "# remove main",
+      ""
     ],
     "description": "",
     "prefix": "show01",
+    "scope": "python"
+  },
+  "show 02": {
+    "body": [
+      "@app.command()",
+      "def hello(name: str):",
+      "    print(f\"Hello {name}\")"
+    ],
+    "description": "",
+    "prefix": "show02",
     "scope": "python"
   }
 }

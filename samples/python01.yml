@@ -5,3 +5,12 @@ snippet show01:
   body: |
     app = typer.Typer()
     # remove main
+
+snippet show02:
+  prefix: "show02"
+  name: "show 02"
+  scope: "python"
+  body: |
+    @app.command()
+    def hello(name: str):
+        print(f"Hello {name}")

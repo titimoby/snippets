@@ -1,6 +1,7 @@
 package snippets
 
 import (
+	"fmt"
 	"os"
 	"testing"
 )
@@ -31,4 +32,20 @@ func TestGenerateVSCodeSnippets(t *testing.T) {
 	if computedSnippet != expectedSnippet {
 		t.Errorf("generated JSON snippets do not match expected output: \n%v\nvs\n%v", computedSnippet, expectedSnippet)
 	}
+}
+
+func TestGenerateLive(t *testing.T) {
+	yamlFilePath := "samples/python01.yml"
+	yamlData, err := readYamlFile(yamlFilePath)
+	if err != nil {
+		t.Errorf("failed to read YAML file: %v", err)
+		return
+	}
+	liveSnippets, err := generateLiveSnippets(yamlData)
+	if err != nil {
+		t.Errorf("failed to read code snippets file: %v", err)
+		return
+	}
+
+	fmt.Println(string(liveSnippets))
 }

@@ -1,0 +1,12 @@
+<template
+    name="show01"
+    value="app = typer.Typer()&#10;# remove main"
+    description="description show01"
+    toReformat="false"
+    toShortenFQNames="true"></template>
+<template
+    name="show02"
+    value="@app.command()&#10;def hello(name: str):&#10;    print(f&quot;Hello {name}&quot;)"
+    description="description show02"
+    toReformat="false"
+    toShortenFQNames="true"></template>
